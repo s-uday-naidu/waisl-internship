@@ -1,0 +1,185 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+export default function EditDy() {
+  const navigate = useNavigate();
+  const { asset_tag_number } = useParams();
+
+  const [dy, setDy] = useState({
+    asset_tag_number: "",
+    asset_type: "",
+    host_name: "",
+    ip_address: "",
+    mac_address: "",
+    location: "",
+    bio_pc_serial: "",
+    mface_serial: "",
+    m_asset_tag_number: ""
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDy = async () => {
+      try {
+        const result = await axios.get(`http://localhost:8080/api/v10/dy/asset/${asset_tag_number}`);
+        setDy(result.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+        if (error.response) {
+          console.error('Error response:', error.response.data);
+        }
+        setLoading(false);
+      }
+    };
+
+    loadDy();
+  }, [asset_tag_number]);
+
+  const onInputChange = (e) => {
+    setDy({ ...dy, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:8080/api/v10/dy/updateByassetTag/${asset_tag_number}`, dy, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('Response:', response.data);
+      navigate("/updated");
+    } catch (error) {
+      console.error('There was an error!', error.message);
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+      }
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
+        <img src="/favicon.png" alt="DY Logo" className="logo" style={{ maxHeight: '40px', marginBottom: '5px' }} />
+          <h2 className="text-center m-3">Edit Asset</h2>
+          <form onSubmit={onSubmit}>
+            <div className="mb-3">
+              <label htmlFor="asset_tag_number" className="form-label">Asset Tag Number</label>
+              <input
+                type="text"
+                className="form-control"
+                name="asset_tag_number"
+                id="asset_tag_number"
+                value={dy.asset_tag_number}
+                readOnly
+                onChange={onInputChange}
+                style={{
+                  backgroundColor: '#e9ecef',
+                  cursor: 'not-allowed',
+                  color: '#6c757d'
+                }}
+                title="This field cannot be edited"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="host_name" className="form-label">Host Name</label>
+              <input
+                type="text"
+                className="form-control"
+                name="host_name"
+                id="host_name"
+                value={dy.host_name}
+                onChange={onInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="ip_address" className="form-label">IP Address</label>
+              <input
+                type="text"
+                className="form-control"
+                name="ip_address"
+                id="ip_address"
+                value={dy.ip_address}
+                onChange={onInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="mac_address" className="form-label">MAC Address</label>
+              <input
+                type="text"
+                className="form-control"
+                name="mac_address"
+                id="mac_address"
+                value={dy.mac_address}
+                onChange={onInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="location" className="form-label">Location</label>
+              <input
+                type="text"
+                className="form-control"
+                name="location"
+                id="location"
+                value={dy.location}
+                onChange={onInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="bio_pc_serial" className="form-label">BIO-PC Serial Number</label>
+              <input
+                type="text"
+                className="form-control"
+                name="bio_pc_serial"
+                id="bio_pc_serial"
+                value={dy.bio_pc_serial}
+                onChange={onInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="mface_serial" className="form-label">MFACE Serial Number</label>
+              <input
+                type="text"
+                className="form-control"
+                name="mface_serial"
+                id="mface_serial"
+                value={dy.mface_serial}
+                onChange={onInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="m_asset_tag_number" className="form-label">MFACE Asset Tag Number</label>
+              <input
+                type="text"
+                className="form-control"
+                name="m_asset_tag_number"
+                id="m_asset_tag_number"
+                value={dy.m_asset_tag_number}
+                readOnly
+                onChange={onInputChange}
+                style={{
+                  backgroundColor: '#e9ecef',
+                  cursor: 'not-allowed',
+                  color: '#6c757d'
+                }}
+                title="This field cannot be edited"
+              />
+            </div>
+            <div className="d-flex justify-content-center">
+              <button type="submit" className="btn btn-outline-primary">Submit</button>
+              <button type="button" className="btn btn-outline-danger mx-2" onClick={() => navigate("/DY")}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
