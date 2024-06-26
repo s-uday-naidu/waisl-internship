@@ -13,6 +13,7 @@ export default function Finder() {
     const [matvList, setMatvList] = useState([]);
     const [serverList, setServerList] = useState([]);
     const [cctvList, setCctvList] = useState([]);
+    const [laptopList, setlaptopList] = useState([]);
     const [loading, setLoading] = useState(true);
     let navigate = useNavigate();
 
@@ -80,9 +81,18 @@ export default function Finder() {
             }
         };
 
+        const fetchLaptop = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/v12/laptops');
+                setlaptopList(response.data);
+            } catch (error) {
+                console.error('Error fetching laptop data:', error);
+            }
+        };
+
         const fetchAllData = async () => {
             setLoading(true);
-            await Promise.all([fetchEpos(), fetchDy(), fetchEus(), fetchFids(), fetchMatv(), fetchServer(), fetchCctv()]);
+            await Promise.all([fetchEpos(), fetchDy(), fetchEus(), fetchFids(), fetchMatv(), fetchServer(), fetchCctv(),fetchLaptop()]);
             setLoading(false);
         };
 
@@ -254,6 +264,30 @@ export default function Finder() {
                                     <FontAwesomeIcon icon={faEye} className="overlay-icon" />
                                 </Link>
                             </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {/* LAPTOP Card*/}
+                <div className="col-lg-4 col-md-6 mb-4">
+                    <div className="card shadow-sm position-relative">
+                        <div className="card-body">
+                            <h5 className="card-title">
+                                <img src="/eus1.png" alt="laptop Logo" className="logo" style={{ maxHeight: '30px' }} />
+                            </h5>
+                            <p className="card-text">Total: {laptopList.length}</p>
+                            <div className="overlay">
+                                <Link to="/laptoptag" className="overlay-link">
+                                    <FontAwesomeIcon icon={faPlus} className="overlay-icon" />
+                                </Link>
+                                <Link to="/laptop" className="overlay-link">
+                                    <FontAwesomeIcon icon={faEdit} className="overlay-icon" />
+                                </Link>
+                                <Link to="/viewlaptop" className="overlay-link">
+                                    <FontAwesomeIcon icon={faEye} className="overlay-icon" />
+                                </Link>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

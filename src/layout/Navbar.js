@@ -46,7 +46,7 @@ export default function Navbar() {
                 </Link>
                 <div className="buttons-container">
                 <div className="dropdown-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                        <span className="dy-button" onClick={() => navigate('/Summary')}>ASSETS</span>
+                        <span className="dy-button" onClick={() => navigate('/Summary')}>STORES</span>
                     </div>
                     {/*&nbsp;&nbsp;
                     <div className="dropdown-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

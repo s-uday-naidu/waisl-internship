@@ -28,6 +28,11 @@ import EditFids from './Tables/FIDS/EditFids';
 import FIDSTAG from './Tables/FIDS/FIDSTAG';
 import HomeFids from './Tables/FIDS/HomeFids';
 import ViewFids from './Tables/FIDS/ViewFids';
+import Addlaptop from './Tables/LAPTOP/AddLaptop';
+import Editlaptop from './Tables/LAPTOP/EditLaptop';
+import Homelaptop from './Tables/LAPTOP/HomeLaptop';
+import LAPTOPTAG from './Tables/LAPTOP/LAPTOPTAG';
+import Viewlaptop from './Tables/LAPTOP/ViewLaptop';
 import AddMatv from './Tables/MATV/AddMatv';
 import EditMatv from './Tables/MATV/EditMatv';
 import HomeMatv from './Tables/MATV/HomeMatv';
@@ -45,6 +50,7 @@ import EposSuccessMessage from './pages/EposUpdated';
 import EUSUPDATED from './pages/EusUpdated';
 import FIDSUPDATED from './pages/FidsUpdated';
 import Home from './pages/Home';
+import LaptopUpdated from './pages/LaptopUpdated';
 import UMATVupdated from './pages/MatvUpdated';
 import CCTVSuccess from './pages/SuccessCctv';
 import SuccessEpos from './pages/SuccessEpos';
@@ -113,6 +119,12 @@ function App() {
         <Route exact path='/MATVTAG'element={<MATVTAG/>}/>
         <Route exact path='/SERVERTAG'element={<SERVERTAG/>}/>
         <Route path="/Summary" element={<Finder />} />
+        <Route path="/laptop"element={<Homelaptop/>}/>
+        <Route path="/addlaptop"element={<Addlaptop/>}/>
+        <Route path="/laptoptag"element={<LAPTOPTAG/>}/>
+        <Route path='/viewlaptop'element={<Viewlaptop/>}/>
+        <Route path='/editlaptop/:asset_tag_number'element={<Editlaptop/>}/>
+        <Route path='/laptopupdated' element={<LaptopUpdated/>}/>
       </Routes>
       </Router>
     </div>
