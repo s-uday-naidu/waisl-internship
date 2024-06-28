@@ -13,6 +13,7 @@ export default function Finder() {
     const [matvList, setMatvList] = useState([]);
     const [serverList, setServerList] = useState([]);
     const [cctvList, setCctvList] = useState([]);
+    const [cctv1List, setCctv1List] = useState([]);
     const [laptopList, setlaptopList] = useState([]);
     const [loading, setLoading] = useState(true);
     let navigate = useNavigate();
@@ -89,10 +90,18 @@ export default function Finder() {
                 console.error('Error fetching laptop data:', error);
             }
         };
+        const fetchCctv1 = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/v12/cctv1');
+                setCctv1List(response.data);
+            } catch (error) {
+                console.error('Error fetching cctv1 data:', error);
+            }
+        };
 
         const fetchAllData = async () => {
             setLoading(true);
-            await Promise.all([fetchEpos(), fetchDy(), fetchEus(), fetchFids(), fetchMatv(), fetchServer(), fetchCctv(),fetchLaptop()]);
+            await Promise.all([fetchEpos(), fetchDy(), fetchEus(), fetchFids(), fetchMatv(), fetchServer(), fetchCctv(),fetchLaptop(),fetchCctv1()]);
             setLoading(false);
         };
 
@@ -284,6 +293,23 @@ export default function Finder() {
                                     <FontAwesomeIcon icon={faEdit} className="overlay-icon" />
                                 </Link>
                                 <Link to="/viewlaptop" className="overlay-link">
+                                    <FontAwesomeIcon icon={faEye} className="overlay-icon" />
+                                </Link>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {/*CCTV1 Card body*/}
+                <div className="col-lg-4 col-md-6 mb-4">
+                    <div className="card shadow-sm position-relative">
+                        <div className="card-body">
+                            <h5 className="card-title">
+                                <img src="/cctvlogo.png" alt="cctv Logo" className="logo" style={{ maxHeight: '30px' }} />
+                            </h5>
+                            <p className="card-text">Total: {cctv1List.length}</p>
+                            <div className="overlay">
+                                <Link to="/cctv1home" className="overlay-link">
                                     <FontAwesomeIcon icon={faEye} className="overlay-icon" />
                                 </Link>
                             </div>

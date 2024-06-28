@@ -3,6 +3,8 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
+import HomeCctv1 from './Tables/CCTV1/CCTVHome';
+import CctvPing from './Tables/CCTV1/CctvPing';
 import AddCctv from './Tables/Cctv/AddCctv';
 import CCTVTAG from './Tables/Cctv/CCTVTAG';
 import EditCctv from './Tables/Cctv/EditCctv';
@@ -125,6 +127,8 @@ function App() {
         <Route path='/viewlaptop'element={<Viewlaptop/>}/>
         <Route path='/editlaptop/:asset_tag_number'element={<Editlaptop/>}/>
         <Route path='/laptopupdated' element={<LaptopUpdated/>}/>
+        <Route path="/cctv1home" element={<HomeCctv1/>}/>
+        <Route path="/cctv-ping" element={<CctvPing/>}/>
       </Routes>
       </Router>
     </div>
